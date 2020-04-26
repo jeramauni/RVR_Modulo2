@@ -6,7 +6,6 @@
 #include <time.h>
 #include <iostream>
 
-//Comprueba si char command es un comando registrado
 bool isViable (char command)
 {
     if (command == 't' || command == 'd' || command == 'q') {
@@ -63,10 +62,11 @@ int main(int argc, char **argv)
     {
         //Evitar basura en el buffer-------------
         memset(&buffer, 0, sizeof(buffer));
+        //---------------------------------------
         ssize_t bytes = recvfrom(sd, buffer, 79 * sizeof(char) , 0, &client_addr, &client_len);
         
         //Detecta si se introduce un comando válido
-        while (bytes != 2 || !isViable(buffer[0])) 
+        while (bytes > 2 || !isViable(buffer[0])) 
         {
             if ( bytes == -1)
             {
@@ -74,11 +74,14 @@ int main(int argc, char **argv)
                 return -1;
             }
 
-            //Output de comando incorrecto/ no soportado         
+            //Output de comando incorrecto/ no soportado
+            
+
             std::cout << "Comando incorrecto..." << buffer;                   
             std::cout <<"Los comandos aceptados son \'t\'(hora) / \'d\'(fecha) / \'q\'(terminar proceso) \n";
             //Evitar basura en el buffer-------------
             memset(&buffer, 0, sizeof(buffer));
+            //---------------------------------------
             bytes = recvfrom(sd, buffer, 79 * sizeof(char) , 0, &client_addr, &client_len);
         }
 
