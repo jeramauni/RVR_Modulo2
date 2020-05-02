@@ -1,0 +1,6 @@
+Comprobar qué sucede si varios clientes intentan conectar al mismo tiempo:
+
+Ignora a todos los clientes posteriores al primero.
+Aunque la instrucción listen(int fd_, int N_) puede poner a la cola
+hasta N peticiones, accept() es bloqueante. Y, al no usar multithreading,
+el servior se mantiene escuchando y respondiendo a un solo cliente, el primero.
