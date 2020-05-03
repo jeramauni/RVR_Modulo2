@@ -1,0 +1,4 @@
+Para compilar este archivo es necesario usar -std=c++11
+
+
+> g++ -std=c++11 file.cc -o program_name
